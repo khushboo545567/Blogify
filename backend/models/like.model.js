@@ -13,4 +13,7 @@ const likeSchema = mongoose.Schema(
   { timestamps: true }
 );
 
+// Prevent same user from liking same target multiple times
+likeSchema.index({ likedBy: 1, targetId: 1, targetModel: 1 }, { unique: true });
+
 export const Like = mongoose.model("Like", likeSchema);
