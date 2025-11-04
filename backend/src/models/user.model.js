@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema(
     role: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Role",
-      default: "USER",
+      required: true,
     },
     isBlocked: {
       type: Boolean,

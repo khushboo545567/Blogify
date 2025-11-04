@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import errorMiddleware from "backend/src/middleware/error.middleware.js";
+import errorMiddleware from "./middleware/error.middleware.js";
 import authRouter from "./routes/auth.route.js";
 
 const app = express();

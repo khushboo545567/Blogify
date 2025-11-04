@@ -1,8 +1,9 @@
 import { User } from "../models/user.model.js";
 import asyncHandler from "../utils/asyncHandler.js";
-import ApiError from "../utils/apiError.js";
+import { ApiError } from "../utils/apiError.js";
 import { uploadOnCloudnary } from "../utils/cloudinary.js";
-import ApiResponse from "../utils/apiResponse.js";
+import { ApiResponse } from "../utils/apiResponse.js";
+import { Role } from "../models/roles.model.js";
 
 const registerUser = asyncHandler(async (req, res) => {
   const { userName, email, password } = req.body;
@@ -14,8 +15,11 @@ const registerUser = asyncHandler(async (req, res) => {
 
   const userData = { userName, email, password };
   if (req.body.bio) {
-    userData.bio = bio;
+    userData.bio = req.body.bio;
   }
+
+  const usersRole = await Role.findOne({ name: "user" });
+  userData.role = usersRole._id;
 
   // get the file path to upload in the cloudnary
   const avatarFilePath = req.file?.path;
@@ -26,6 +30,14 @@ const registerUser = asyncHandler(async (req, res) => {
       userData.avatar = avatarUrl;
     }
   }
+
+  // verify users email so genreate the token
+  const { unHahsedToken, hashedToken, tokenExpiry } = generateTemporaryToken();
+  userData.emailVerificationToken = hashedToken;
+  userData.emailExpiryVerificationToken = unHahsedToken;
+  await userData.save({ validateBeforeSave: false });
+
+  // send the mail to verify email
 
   const user = await User.create(userData);
   return res
