@@ -1,40 +1,39 @@
-import { verifyEmail } from "../controllers/verifyEmail.controller";
-
+import { body } from "express-validator";
 const registerUserValidator = () => {
   return [
     body("userName")
       .trim()
       .notEmpty()
-      .withMessgae("username is required !")
+      .withMessage("Email is invalid")
       .isLength({ min: 3 })
-      .withMessgae("user name must be atleast of 3 character"),
+      .withMessage("user name must be atleast of 3 character"),
     body("email")
       .trim()
       .notEmpty()
-      .withMessgae("Email is required")
+      .withMessage("Email is required")
       .isEmail()
-      .withMessgae("Email is invalid"),
+      .withMessage("Email is invalid"),
 
     body("password")
       .notEmpty()
-      .withMessgae("password is required")
+      .withMessage("password is required")
       .isLength({ min: 6 })
-      .withMessgae("passowrd should be of min 6 char"),
+      .withMessage("passowrd should be of min 6 char"),
 
     body("bio")
       .isLength({ min: 5 })
-      .withMessgae("bio should be of minimum 5 character long "),
+      .withMessage("bio should be of minimum 5 character long "),
   ];
 };
 
 const loginUserValidator = () => {
   return [
-    body("email").isEmail().withMessgae("Email is invalid"),
+    body("email").isEmail().withMessage("Email is invalid"),
     body("password")
       .notEmpty()
-      .withMessgae("password is required")
+      .withMessage("password is required")
       .isLength({ min: 6 })
-      .withMessgae("passowrd should be of min 6 char"),
+      .withMessage("passowrd should be of min 6 char"),
   ];
 };
 export { registerUserValidator, loginUserValidator };
