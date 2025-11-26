@@ -37,7 +37,65 @@ const addRoleToUser = asyncHandler(async (req, res, next) => {
     );
 });
 
-// REMOVE ROLE FROM THE USER
-const removeRoleToUser = asyncHandler(async (req, res, next) => {});
+// GET assigned role-> username show, rolename (find by populate)
+const getAssignedRole = asyncHandler(async (req, res, next) => {
+  const assignedRoles = await User.find({})
+    .select("userName email role")
+    .populate("role", "name")
+    .lean();
 
-export { addRoleToUser };
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        assignedRoles,
+        "user with roles fetched successfully !"
+      )
+    );
+});
+
+// REMOVE ROLE FROM THE USER
+// take id from the param
+const removeRoleToUser = asyncHandler(async (req, res, next) => {
+  const { userId, roleId } = req.params;
+
+  // verify user exists or not
+  const user = await User.findOne({ userId });
+  if (!user) {
+    throw new ApiError(404, "User not found !");
+  }
+  // verify role exists or not
+  const role = await Role.findOne({ roleId });
+  if (!role) {
+    throw new ApiError(404, "role not found !");
+  }
+
+  // remove role form the user
+  const removeRole = await User.findByIdAndUpadate(
+    userId,
+    { $pull: { role: roleId } },
+    { new: true }
+  ).populate("role", "name");
+
+  // check if the role delete or not
+  const stillHasRole = removeRole.role.some(
+    (r) => r._id.toString() === roleId.toString()
+  );
+
+  if (stillHasRole) {
+    throw new ApiError(500, "failed to remove role !");
+  }
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        removeRole.role,
+        `Role '${role.name}' removed from user`
+      )
+    );
+});
+
+export { addRoleToUser, getAssignedRole, removeRoleToUser };
