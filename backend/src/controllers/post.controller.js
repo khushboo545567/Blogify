@@ -4,7 +4,7 @@ import { ApiError } from "../utils/apiError.js";
 import { uploadOnCloudnary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import sharp from "sharp";
-import fs from "fs";
+import fs, { link } from "fs";
 
 // user and admin can post article
 const PostAticle = asyncHandler(async (req, res) => {
@@ -82,7 +82,15 @@ const getPostForFeed = asyncHandler(async (req, res) => {});
 // admin can fetch the post by giving the user id to see the users post take the uid from the body and || the user can also view their own posts take the uid form the req.param
 const getPostForUser = asyncHandler(async (req, res) => {});
 
-// admin in body uid get, and user can delete the post from param uid get
-const deletePost = asyncHandler(async (req, res) => {});
+// admin and author can delte the post , get the post id form the params , and uid from the token
+// while deleting the post delete the like and comment of that post
+const deletePost = asyncHandler(async (req, res) => {
+  const { postId } = req.params;
+  await Post.findByIdAndDelete(postId); // this triggers post('findOneAndDelete') hook above
 
-export { PostAticle };
+  return res
+    .status(200)
+    .json(new ApiResponse(200, "post deleted successfully !"));
+});
+
+export { PostAticle, deletePost };

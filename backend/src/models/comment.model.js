@@ -18,6 +18,29 @@ const commentSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-// add a middleware to add on delete cascade -> when the commentdelete the like on that comment should be delete
+// PERFORMING ON DELETE CASCADE
+
+// post hook for query-based deletions (findOneAndDelete, findByIdAndDelete)
+commentSchema.post("findOneAndDelete", async function (doc) {
+  if (!doc) return;
+  try {
+    const Like = mongoose.model("Like");
+    await Like.deleteMany({ targetModel: "Comment", targetId: doc._id });
+  } catch (err) {
+    console.error("Failed to delete likes for comment", doc._id, err);
+  }
+});
+
+// (Optional) doc middleware for remove()
+// if you use commentDoc.remove() somewhere, this will also run
+commentSchema.pre("remove", async function (next) {
+  try {
+    const Like = mongoose.model("Like");
+    await Like.deleteMany({ targetModel: "Comment", targetId: this._id });
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 export const Comment = mongoose.model("Comment", commentSchema);
