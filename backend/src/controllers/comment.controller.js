@@ -34,12 +34,62 @@ const commentOn = asyncHandler(async (req, res) => {
 });
 
 // edit comment
-const editComment = asyncHandler(async (req, res) => {});
+const editComment = asyncHandler(async (req, res) => {
+  const { commentId } = req.params;
+  const { text } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(commentId)) {
+    throw new ApiError(400, "invalid commentId");
+  }
+
+  const updatedComment = await Comment.findByIdAndUpdate(
+    commentId,
+    {
+      text: text.trim(),
+    },
+    { new: true, runValidators: true }
+  ).new();
+
+  if (!updatedComment) {
+    throw new ApiError(404, "comment not found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, updatedComment, "comment edited successfully"));
+});
 
 // delete comment
-const deleteComment = asyncHandler(async (req, res) => {});
+const deleteComment = asyncHandler(async (req, res) => {
+  const { commentId } = req.params;
+  const existComment = await Comment.findById(commentId);
+  if (!existComment) {
+    throw new ApiError(404, "comment not found");
+  }
+
+  const deletedComment = await Comment.findByIdAndDelete(commentId);
+
+  if (!deletedComment) {
+    throw new ApiError(404, "comment not found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, null, "comment deleted successfully"));
+});
 
 //  get the comment for the specific user
-const getComment = asyncHandler(async (req, res) => {});
+const getComment = asyncHandler(async (req, res) => {
+  const { postId } = req.params;
+
+  // find the comment based on post id
+  const comments = await Comment.find({ commentOnPost: postId })
+    .populate("commentedBy", "name")
+    .sort({ createdAt: -1 });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, comments, "comments fetched successfully"));
+});
 
 export { commentOn, editComment, deleteComment, getComment };
