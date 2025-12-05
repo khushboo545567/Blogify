@@ -79,8 +79,13 @@ const editArticle = asyncHandler(async (req, res) => {});
 // get post on the following of the user (first find the users follower and then find these authros in teh post createdby and return )
 const getPostForFeed = asyncHandler(async (req, res) => {});
 
-// admin can fetch the post by giving the user id to see the users post take the uid from the body and || the user can also view their own posts take the uid form the req.param
+// admin can fetch the post by giving the user id to see the users post take the uid from the body and
+const getPostForAdmin = asyncHandler(async (req, res) => {});
+// the user can also view their own posts take the uid form the req.param
 const getPostForUser = asyncHandler(async (req, res) => {});
+
+// get post when applying filter on the catogeries
+const getPostByFilter = asyncHandler(async (req, res) => {});
 
 // admin and author can delte the post , get the post id form the params , and uid from the token
 // while deleting the post delete the like and comment of that post
