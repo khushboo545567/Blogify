@@ -132,8 +132,29 @@ export const getPostForAdmin = asyncHandler(async (req, res) => {
     )
   );
 });
+
 // the user can also view their own posts take the uid form the req.param
-const getPostForUser = asyncHandler(async (req, res) => {});
+const getPostForUser = asyncHandler(async (req, res) => {
+  const { userId } = req.user.id;
+  const page = Number(req.query.page || 1);
+  const limit = 20;
+  const skip = (page - 1) * limit;
+
+  const [posts, total] = await Promise.all([
+    Post.find({ postedBy: userId })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .populate("category", "categoryName")
+      .select("title description postImage likesCount commentsCount createdAt"),
+    Post.countDocuments({ postedBy: userId }),
+  ]);
+
+  return res.status(200).json({
+    success: true,
+    data: { posts, page, limit, total, totalPages: Math.ceil(total / limit) },
+  });
+});
 
 // get post when applying filter on the catogeries
 const getPostByFilter = asyncHandler(async (req, res) => {});
