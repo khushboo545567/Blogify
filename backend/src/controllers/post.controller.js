@@ -105,7 +105,33 @@ const editArticle = asyncHandler(async (req, res) => {
 const getPostForFeed = asyncHandler(async (req, res) => {});
 
 // admin can fetch the post by giving the user id to see the users post take the uid from the body and
-const getPostForAdmin = asyncHandler(async (req, res) => {});
+export const getPostForAdmin = asyncHandler(async (req, res) => {
+  const page = Number(req.query.page) || 1;
+  const limit = 20;
+  const skip = (page - 1) * limit;
+
+  const posts = await Post.find({})
+    .populate("postedBy", "userName")
+    .populate("category", "categoryName")
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit);
+  const total = await Post.countDocuments();
+
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      {
+        posts,
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+      "posts fetched for admin"
+    )
+  );
+});
 // the user can also view their own posts take the uid form the req.param
 const getPostForUser = asyncHandler(async (req, res) => {});
 
