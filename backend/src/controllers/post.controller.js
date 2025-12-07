@@ -6,6 +6,7 @@ import { ApiResponse } from "../utils/apiResponse.js";
 import sharp from "sharp";
 import fs, { link } from "fs";
 import { Catogery } from "../models/catogery.model.js";
+import { Follow } from "../models/follow.model.js";
 
 // user and admin can post article
 const PostAticle = asyncHandler(async (req, res) => {
@@ -103,7 +104,33 @@ const editArticle = asyncHandler(async (req, res) => {
 });
 
 // get post on the following of the user (first find the users follower and then find these authros in teh post createdby and return )
-const getPostForFeed = asyncHandler(async (req, res) => {});
+const getPostForFeed = asyncHandler(async (req, res) => {
+  const { userId } = req.user.id;
+  const limit = 20;
+  const skip = (page - 1) * limit;
+
+  const follow = await Follow.find({ follower: userId }).select(
+    "following -_id"
+  );
+  const followingId = follow.map((f) => {
+    f.following;
+  });
+
+  if (!followingId.length) {
+    return res.status(200).json({ posts: [] });
+  }
+
+  const posts = await Post.find({
+    postedBy: { $in: followingId },
+    createdAt: { $gte: cutoff },
+  })
+    .populate("postedBy", "userName avatar")
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit); // limit or paginate as needed
+
+  return res.status(200).json({ posts });
+});
 
 // admin can fetch the post by giving the user id to see the users post take the uid from the body and
 export const getPostForAdmin = asyncHandler(async (req, res) => {
@@ -183,4 +210,11 @@ const deletePost = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, "post deleted successfully !"));
 });
 
-export { PostAticle, deletePost, editArticle, getPostForUser, getPostByFilter };
+export {
+  PostAticle,
+  deletePost,
+  editArticle,
+  getPostForUser,
+  getPostByFilter,
+  getPostForFeed,
+};
