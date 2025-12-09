@@ -13,10 +13,10 @@ router
   .route("/create-catogery")
   .post(verifyJwt, authorizeRoles("admin"), createCatogery);
 
-router.route("get-catogery").get(verifyJwt, getCatogery);
+router.route("/get-catogery").get(verifyJwt, getCatogery);
 
 router
-  .route("delete-catogery")
+  .route("/delete-catogery/:catId")
   .delete(verifyJwt, authorizeRoles("admin"), deleteCatogery);
 
 export default router;
