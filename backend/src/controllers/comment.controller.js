@@ -38,17 +38,11 @@ const editComment = asyncHandler(async (req, res) => {
   const { commentId } = req.params;
   const { text } = req.body;
 
-  if (!mongoose.Types.ObjectId.isValid(commentId)) {
-    throw new ApiError(400, "invalid commentId");
-  }
-
   const updatedComment = await Comment.findByIdAndUpdate(
     commentId,
-    {
-      text: text.trim(),
-    },
+    { text: text.trim() },
     { new: true, runValidators: true }
-  ).new();
+  );
 
   if (!updatedComment) {
     throw new ApiError(404, "comment not found");

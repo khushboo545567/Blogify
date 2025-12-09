@@ -11,9 +11,10 @@ const router = Router();
 
 router.route("/commented-on/:postId").post(verifyJwt, commentOn);
 
-router.route("delete-comment/:commentId").put(verifyJwt, editComment);
+router.route("/delete-comment/:commentId").delete(verifyJwt, deleteComment);
 
-router.route("get-comment/:postId").get(verifyJwt, getComment);
+router.route("/get-comment/:postId").get(verifyJwt, getComment);
 
-router.route("delete-comment").delete(verifyJwt, deleteComment);
+router.route("/edit-comment/:commentId").put(verifyJwt, editComment);
+
 export default router;
