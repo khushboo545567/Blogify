@@ -9,7 +9,7 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import Layout from "./layout.jsx";
+import Layout from "./layout/mainLayout.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisgerPage from "./pages/RegisterPage.jsx";
