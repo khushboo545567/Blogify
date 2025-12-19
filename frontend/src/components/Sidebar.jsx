@@ -28,6 +28,14 @@ const Sidebar = () => {
           <span className="text-black dark:text-white">Feed</span>
         </Link>
         <Link
+          to="/"
+          className="flex gap-3 text-lg hover:bg-gray-100 p-2 rounded-sm"
+        >
+          <i class="ri-edit-line text-black dark:text-white cursor-pointer"></i>
+
+          <span className="text-black dark:text-white">Post Blogs</span>
+        </Link>
+        <Link
           to="/profile"
           className="flex gap-3 text-lg hover:bg-gray-100  p-2 rounded-sm"
         >
