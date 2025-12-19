@@ -8,19 +8,20 @@ const Navbar = () => {
 
   return (
     <nav
-      className="fixed top-0 left-0 w-full h-16 
-      bg-blue-600 dark:bg-gray-900 
-      text-white flex items-center justify-between px-4 z-50"
+      className="fixed top-0 left-0 w-full h-16 bg-[#FFFFFF]
+       dark:bg-gray-900 
+      text-white flex items-center justify-between px-4 z-50 border-b border-gray-200"
     >
       {/* Left */}
       <div className="flex items-center gap-4">
-        <i className="ri-menu-line text-3xl cursor-pointer"></i>
-        <Link to="/">
-          <i className="ri-remix-fill text-3xl"></i>
+        <i className="ri-menu-line text-3xl text-black dark:text-white cursor-pointer"></i>
+
+        <Link to="/" className="dark:bg-white dark:rounded-full">
+          <img src="/logo.png" alt="logo" className="text-black w-[60px]" />
         </Link>
 
-        <div className="flex items-center bg-white text-black rounded-md px-3 py-1">
-          <i className="ri-search-line text-gray-500"></i>
+        <div className="flex items-center bg-gray-100 text-black rounded-md px-3 py-1">
+          <i className="ri-search-line  text-black dark:text-white cursor-pointer"></i>
           <input
             type="text"
             placeholder="Search..."
@@ -37,19 +38,19 @@ const Navbar = () => {
           className="text-3xl"
         >
           {themeMode === "light" ? (
-            <i className="ri-moon-fill"></i>
+            <i className="ri-moon-fill text-black dark:text-white cursor-pointer"></i>
           ) : (
-            <i className="ri-sun-fill"></i>
+            <i className="ri-sun-fill text-black dark:text-white cursor-pointer"></i>
           )}
         </button>
 
-        <button className="bg-blue-500 px-3 py-1 text-xl rounded-md hover:bg-blue-700">
+        <button className="bg-[#F9F9F9] text-black px-3 py-1 text-xl rounded-md hover:bg-blue-700">
           <Link to="/login">Login</Link>
         </button>
-        <button className="bg-blue-500 px-3 py-1 text-xl rounded-md hover:bg-blue-700">
+        <button className="bg-[#F9F9F9] text-black px-3 py-1 text-xl rounded-md hover:bg-blue-700">
           <Link to="/register">Signup</Link>
         </button>
-        <button className="bg-amber-500 px-3 py-1 text-xl rounded-md hover:bg-amber-600 text-black">
+        <button className="bg-[#000000] px-3 py-1 text-xl rounded-md hover:bg-amber-600 text-white ">
           <Link to="/post">Post</Link>
         </button>
       </div>

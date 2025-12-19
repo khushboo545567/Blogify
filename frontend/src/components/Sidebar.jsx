@@ -6,41 +6,46 @@ const Sidebar = () => {
     <div
       className="
         fixed top-16 left-0
-        w-64 h-[calc(100vh-4rem)]
-        bg-gray-800 dark:bg-gray-800
-        text-white p-4 pt-16
-      "
+    w-64 h-[calc(100vh-4rem)]
+    bg-[#FFFFFF] dark:bg-gray-800
+    text-white p-4 pt-16
+    border-r border-gray-200"
     >
       <div className="flex flex-col gap-4">
         <Link
           to="/"
           className="flex gap-3 text-lg hover:bg-green-300 p-2 rounded-sm"
         >
-          <i class="ri-home-2-fill"></i>Home
+          <i class="ri-home-2-fill text-black dark:text-white cursor-pointer"></i>
+          <span className="text-black dark:text-white">Home</span>
         </Link>
         <Link
           to="/profile"
           className="flex gap-3 text-lg hover:bg-green-300 p-2 rounded-sm"
         >
-          <i class="ri-account-circle-fill"></i>Profile
+          <i class="ri-account-circle-fill text-black dark:text-white cursor-pointer"></i>
+          <span className="text-black dark:text-white">Profile</span>
         </Link>
         <Link
           to="#"
           className="flex gap-3 text-lg hover:bg-green-300 p-2 rounded-sm"
         >
-          <i class="ri-bar-chart-fill"></i>Status
+          <i class="ri-bar-chart-fill text-black dark:text-white cursor-pointer"></i>
+          <span className="text-black dark:text-white">Status</span>
         </Link>
         <Link
           to="#"
           className="flex gap-3 text-lg hover:bg-green-300 p-2 rounded-sm"
         >
-          <i class="ri-book-marked-fill"></i>Library
+          <i class="ri-book-marked-fill text-black dark:text-white cursor-pointer"></i>
+          <span className="text-black dark:text-white"> Library</span>
         </Link>
         <Link
           to="#"
           className="flex gap-3 text-lg hover:bg-green-300 p-2 rounded-sm"
         >
-          <i class="ri-group-fill"></i>Following+
+          <i class="ri-group-fill text-black dark:text-white cursor-pointer"></i>
+          <span className="text-black dark:text-white">Following+</span>
         </Link>
       </div>
     </div>
