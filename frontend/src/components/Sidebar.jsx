@@ -7,42 +7,42 @@ const Sidebar = () => {
       className="
         fixed top-16 left-0
     w-64 h-[calc(100vh-4rem)]
-    bg-[#FFFFFF] dark:bg-gray-800
+    bg-[#FFFFFF] dark:bg-gray-900
     text-white p-4 pt-16
-    border-r border-gray-200"
+    border-r border-gray-200 dark:border-gray-900"
     >
       <div className="flex flex-col gap-4">
         <Link
           to="/"
-          className="flex gap-3 text-lg hover:bg-green-300 p-2 rounded-sm"
+          className="flex gap-3 text-lg hover:bg-gray-100 p-2 rounded-sm"
         >
           <i class="ri-home-2-fill text-black dark:text-white cursor-pointer"></i>
           <span className="text-black dark:text-white">Home</span>
         </Link>
         <Link
           to="/profile"
-          className="flex gap-3 text-lg hover:bg-green-300 p-2 rounded-sm"
+          className="flex gap-3 text-lg hover:bg-gray-100  p-2 rounded-sm"
         >
           <i class="ri-account-circle-fill text-black dark:text-white cursor-pointer"></i>
           <span className="text-black dark:text-white">Profile</span>
         </Link>
         <Link
           to="#"
-          className="flex gap-3 text-lg hover:bg-green-300 p-2 rounded-sm"
+          className="flex gap-3 text-lg hover:bg-gray-100  p-2 rounded-sm"
         >
           <i class="ri-bar-chart-fill text-black dark:text-white cursor-pointer"></i>
           <span className="text-black dark:text-white">Status</span>
         </Link>
         <Link
           to="#"
-          className="flex gap-3 text-lg hover:bg-green-300 p-2 rounded-sm"
+          className="flex gap-3 text-lg hover:bg-gray-100 p-2 rounded-sm"
         >
           <i class="ri-book-marked-fill text-black dark:text-white cursor-pointer"></i>
           <span className="text-black dark:text-white"> Library</span>
         </Link>
         <Link
           to="#"
-          className="flex gap-3 text-lg hover:bg-green-300 p-2 rounded-sm"
+          className="flex gap-3 text-lg hover:bg-gray-100  p-2 rounded-sm"
         >
           <i class="ri-group-fill text-black dark:text-white cursor-pointer"></i>
           <span className="text-black dark:text-white">Following+</span>

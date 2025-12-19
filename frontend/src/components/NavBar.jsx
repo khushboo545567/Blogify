@@ -10,18 +10,27 @@ const Navbar = () => {
     <nav
       className="fixed top-0 left-0 w-full h-16 bg-[#FFFFFF]
        dark:bg-gray-900 
-      text-white flex items-center justify-between px-4 z-50 border-b border-gray-200"
+      text-white flex items-center justify-between px-4 z-50 border-b border-gray-200 dark:border-gray-900"
     >
       {/* Left */}
       <div className="flex items-center gap-4">
-        <i className="ri-menu-line text-3xl text-black dark:text-white cursor-pointer"></i>
-
-        <Link to="/" className="dark:bg-white dark:rounded-full">
-          <img src="/logo.png" alt="logo" className="text-black w-[60px]" />
-        </Link>
+        <i className="ri-menu-line text-2xl text-black dark:text-white cursor-pointer"></i>
+        {themeMode === "light" ? (
+          <Link to="/" className="">
+            <img src="/logo.png" alt="logo" className="text-black w-[70px]" />
+          </Link>
+        ) : (
+          <Link to="/" className="">
+            <img
+              src="/blacklogo.png"
+              alt="logo"
+              className="text-black w-[70px]"
+            />
+          </Link>
+        )}
 
         <div className="flex items-center bg-gray-100 text-black rounded-md px-3 py-1">
-          <i className="ri-search-line  text-black dark:text-white cursor-pointer"></i>
+          <i className="ri-search-line  text-black  cursor-pointer"></i>
           <input
             type="text"
             placeholder="Search..."
@@ -35,7 +44,7 @@ const Navbar = () => {
         {/* THEME TOGGLE */}
         <button
           onClick={themeMode === "light" ? darkTheme : lightTheme}
-          className="text-3xl"
+          className="text-2xl"
         >
           {themeMode === "light" ? (
             <i className="ri-moon-fill text-black dark:text-white cursor-pointer"></i>
@@ -44,13 +53,13 @@ const Navbar = () => {
           )}
         </button>
 
-        <button className="bg-[#F9F9F9] text-black px-3 py-1 text-xl rounded-md hover:bg-blue-700">
+        <button className="bg-[#F9F9F9] text-black px-3 py-1 text-lg rounded-md hover:bg-gray-200">
           <Link to="/login">Login</Link>
         </button>
-        <button className="bg-[#F9F9F9] text-black px-3 py-1 text-xl rounded-md hover:bg-blue-700">
+        <button className="bg-[#F9F9F9] text-black px-3 py-1 text-lg rounded-md hover:bg-gray-200">
           <Link to="/register">Signup</Link>
         </button>
-        <button className="bg-[#000000] px-3 py-1 text-xl rounded-md hover:bg-amber-600 text-white ">
+        <button className="bg-[#000000] px-3 py-1 text-lg rounded-md  text-white ">
           <Link to="/post">Post</Link>
         </button>
       </div>
