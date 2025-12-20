@@ -10,7 +10,7 @@ const Navbar = () => {
     <nav
       className="fixed top-0 left-0 w-full h-16 bg-[#FFFFFF]
        dark:bg-gray-900 
-      text-white flex items-center justify-between px-4 z-50 border-b border-gray-200 dark:border-gray-900"
+      text-white flex items-center justify-between px-4 z-50 border-b border-gray-200 dark:border-gray-700"
     >
       <div className="flex items-center gap-4">
         <i className="ri-menu-line text-2xl text-black dark:text-white cursor-pointer"></i>

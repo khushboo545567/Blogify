@@ -9,7 +9,7 @@ const Sidebar = () => {
     w-64 h-[calc(100vh-4rem)]
     bg-[#FFFFFF] dark:bg-gray-900
     text-white p-4 pt-16
-    border-r border-gray-200 dark:border-gray-900"
+    border-r border-gray-200 dark:border-gray-700"
     >
       <div className="flex flex-col gap-1">
         <Link
