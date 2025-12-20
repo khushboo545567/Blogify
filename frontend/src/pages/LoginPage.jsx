@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const LoginPage = function () {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ userName: "", password: "" });
 
   const handleChange = (e) => {
@@ -21,6 +24,7 @@ const LoginPage = function () {
       );
       if (response.data.success) {
         toast.success(response.data.message || "User logged successfully");
+        navigate("/");
       }
     } catch (error) {
       console.error("Error:", error.response?.data?.message || error.message);
@@ -93,10 +97,12 @@ const LoginPage = function () {
           </button>
         </form>
         <p className="text-center text-sm text-gray-600 dark:text-gray-300 mt-4">
-          Already have an account?{" "}
-          <span className="text-blue-600 cursor-pointer hover:underline">
-            Login
-          </span>
+          Dont have an account?{" "}
+          <Link to="/register">
+            <span className="text-blue-600 cursor-pointer hover:underline">
+              Register
+            </span>
+          </Link>
         </p>
       </div>
     </div>

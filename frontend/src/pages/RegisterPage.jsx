@@ -1,7 +1,12 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+
 const RegisgerPage = function () {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     userName: "",
     email: "",
@@ -25,6 +30,7 @@ const RegisgerPage = function () {
       );
       if (response.data.success) {
         toast.success(response.data.message || "User registered successfully");
+        navigate("/login");
       }
 
       console.log(response.data);
@@ -138,9 +144,11 @@ const RegisgerPage = function () {
         </form>
         <p className="text-center text-sm text-gray-600 dark:text-gray-300 mt-4">
           Already have an account?{" "}
-          <span className="text-blue-600 cursor-pointer hover:underline">
-            Login
-          </span>
+          <Link to="/login">
+            <span className="text-blue-600 cursor-pointer hover:underline">
+              Login
+            </span>
+          </Link>
         </p>
       </div>
     </div>
