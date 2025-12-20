@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 const ProfilePage = () => {
-  const user = {
-    userName: "khushboo_yadav",
-    email: "khushboo@gmail.com",
-    bio: "Frontend developer & tech enthusiast",
-    joinedAt: "20 Dec 2025",
-    posts: 12,
-    followers: 340,
-    following: 180,
-    avatar: "https://placehold.co/200x200",
-  };
+  // const user = {
+  //   userName: "khushboo_yadav",
+  //   email: "khushboo@gmail.com",
+  //   bio: "Frontend developer & tech enthusiast",
+  //   joinedAt: "20 Dec 2025",
+  //   posts: 12,
+  //   followers: 340,
+  //   following: 180,
+  //   avatar: "https://placehold.co/200x200",
+  // };
 
   const [userData, setUserData] = useState(null);
   useEffect(() => {
