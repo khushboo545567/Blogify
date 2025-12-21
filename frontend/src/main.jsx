@@ -20,6 +20,7 @@ import MainLayout from "./layout/mainLayout.jsx";
 import { ThemeProvider } from "./context/ThemeContext.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import ErrorPage from "./pages/error404.jsx";
+import FeedPage from "./pages/FeedPage.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
         <Route path="" element={<HomePage />} />
         <Route path="error" element={<ErrorPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/feed" element={<FeedPage />} />
       </Route>
       {/* auth routes */}
       <Route element={<AuthLayout />}>
