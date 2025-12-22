@@ -28,6 +28,7 @@ import PostBlog from "./pages/PostBlog.jsx";
 import AdminLayout from "./layout/AdminLayout.jsx";
 import AdminProfile from "./pages/admin/AdminProfile.jsx";
 import ManageRolePage from "./pages/admin/ManageRolePage.jsx";
+import ManageAssignRoleUser from "./pages/admin/ManageUserPage.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -54,6 +55,7 @@ const router = createBrowserRouter(
       <Route path="/admin" element={<AdminLayout />}>
         <Route path="/admin/profile" element={<AdminProfile />} />
         <Route path="/admin/roles" element={<ManageRolePage />} />
+        <Route path="/admin/manageuser" element={<ManageAssignRoleUser />} />
       </Route>
     </>
   )

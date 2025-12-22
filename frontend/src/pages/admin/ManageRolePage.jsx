@@ -1,8 +1,9 @@
 import React from "react";
+import ManageRole from "../../components/ManageRole";
 
 const ManageRolePage = () => {
   return (
-    <div className="h-full bg-white p-6">
+    <div className="h-full bg-white p-10">
       {/* Create Role */}
 
       <div className="mb-10">
@@ -18,7 +19,7 @@ const ManageRolePage = () => {
           />
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            className="px-4 py-2 bg-black text-white rounded "
           >
             Add Role
           </button>
@@ -32,7 +33,11 @@ const ManageRolePage = () => {
 
         {/* <ManageRole roleName="Admin" /> */}
         <ul>
-          <li></li>
+          <li>
+            <ManageRole roleName="Admin" />
+            <ManageRole roleName="Moderator" />
+            <ManageRole roleName="editor" />
+          </li>
         </ul>
       </div>
     </div>
