@@ -40,7 +40,7 @@ const ManageAssignRoleUser = () => {
       <form onSubmit={handleAssign} className="flex gap-4 mb-8">
         {/* User Select */}
         <select
-          className="border px-4 py-2 rounded w-48"
+          className="border border-gray-300 px-4 py-2 rounded w-48"
           value={selectedUser}
           onChange={(e) => setSelectedUser(e.target.value)}
         >
@@ -54,7 +54,7 @@ const ManageAssignRoleUser = () => {
 
         {/* Role Select */}
         <select
-          className="border px-4 py-2 rounded w-48"
+          className="border border-gray-300  px-4 py-2 rounded w-48"
           value={selectedRole}
           onChange={(e) => setSelectedRole(e.target.value)}
         >
@@ -97,7 +97,7 @@ const ManageAssignRoleUser = () => {
         {users.map((u) => (
           <li
             key={u._id}
-            className="flex justify-between items-center border px-4 py-2 rounded"
+            className="flex justify-between items-center border border-gray-300  px-4 py-2 rounded"
           >
             <div>
               <p className="font-medium">{u.username}</p>

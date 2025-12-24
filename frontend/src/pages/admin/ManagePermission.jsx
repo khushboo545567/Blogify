@@ -9,13 +9,13 @@ const Permission = () => {
         <h2 className="text-xl font-semibold mb-4">Create Permission</h2>
 
         <div className="flex gap-4">
-          <select className="border rounded-md px-3 py-2 w-40">
+          <select className="border  border-gray-300  rounded-md px-3 py-2 w-40">
             <option>Resource</option>
             <option>Post</option>
             <option>Comment</option>
           </select>
 
-          <select className="border rounded-md px-3 py-2 w-40">
+          <select className="border border-gray-300  rounded-md px-3 py-2 w-40">
             <option>Action</option>
             <option>Create</option>
             <option>Read</option>

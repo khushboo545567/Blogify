@@ -12,7 +12,7 @@ const AssignPermissionCard = () => {
   };
 
   return (
-    <div className="w-full  p-4 border-b border-gray-300  bg-white flex flex-col gap-3">
+    <div className="w-full mb-8  p-4 border-b border-gray-300  bg-white flex flex-col gap-3">
       {/* Header */}
       <div className="flex gap-8 items-center pb-2">
         <span className="text-lg font-semibold text-gray-800">
