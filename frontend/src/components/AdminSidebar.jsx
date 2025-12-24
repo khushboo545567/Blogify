@@ -58,17 +58,6 @@ const Sidebar = () => {
           <span className="text-black dark:text-white">Assign Permissions</span>
         </Link>
 
-        {/* Assign Role to User */}
-        {/* <Link
-          to="/admin/assign-roles"
-          className="flex items-center gap-3 text-lg p-2 rounded-sm hover:bg-gray-100 hover:dark:bg-gray-700"
-        >
-          <i className="ri-team-fill text-black dark:text-white"></i>
-          <span className="text-black dark:text-white">
-            Assign Roles to Users
-          </span>
-        </Link> */}
-
         {/* Manage Comments */}
         <Link
           to="/admin/comments"

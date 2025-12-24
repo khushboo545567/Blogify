@@ -30,7 +30,7 @@ import AdminProfile from "./pages/admin/AdminProfile.jsx";
 import ManageRolePage from "./pages/admin/ManageRolePage.jsx";
 import ManageAssignRoleUser from "./pages/admin/ManageUserPage.jsx";
 import AssignPermission from "./pages/admin/AssignPermissionToRole.jsx";
-import Permission from "./pages/admin/PermissionToRole.jsx";
+import Permission from "./pages/admin/ManagePermission.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
