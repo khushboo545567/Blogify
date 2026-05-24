@@ -18,27 +18,63 @@ const RegisgerPage = function () {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await axios.post(
+  //       `http://localhost:3000/api/v1/users/register`,
+  //       formData,
+  //     );
+  //     if (response.data.success) {
+  //       toast.success(response.data.message || "User registered successfully");
+  //       navigate("/login");
+  //     }
+
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Error:", error.response?.data?.message || error.message);
+  //     toast.error(error.response?.data?.message || "Something went wrong");
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
+      const data = new FormData();
+
+      data.append("userName", formData.userName);
+      data.append("email", formData.email);
+      data.append("password", formData.password);
+      data.append("bio", formData.bio);
+
       const response = await axios.post(
-        `http://localhost:3000/api/v1/users/register`,
-        formData,
+        "http://localhost:3000/api/v1/users/register",
+        data,
         {
-          withCredentials: true,
-        }
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
       );
+
       if (response.data.success) {
-        toast.success(response.data.message || "User registered successfully");
+        toast.success(response.data.message);
         navigate("/login");
       }
-
-      console.log(response.data);
     } catch (error) {
-      console.error("Error:", error.response?.data?.message || error.message);
-      toast.error(error.response?.data?.message || "Something went wrong");
+      console.log(error.response?.data);
+
+      const validationError = error.response?.data?.errors?.[0]?.msg;
+
+      toast.error(
+        validationError ||
+          error.response?.data?.message ||
+          "Something went wrong",
+      );
     }
   };
+
   return (
     <div
       className="min-h-screen flex items-center justify-center 

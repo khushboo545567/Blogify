@@ -26,7 +26,7 @@ const generateAccessAndRefreshToken = async (userId) => {
   } catch (error) {
     throw new ApiError(
       500,
-      "something went wrong while generate the refresh token"
+      "something went wrong while generate the refresh token",
     );
   }
 };
@@ -65,8 +65,7 @@ const registerUser = asyncHandler(async (req, res) => {
   // Generate email verification token
   const { unHashedToken, hashedToken, tokenExpiry } =
     user.generateTemporaryToken();
-  // console.log(unHashedToken);
-  // console.log(hashedToken);
+
   user.emailVerificationToken = hashedToken;
   user.emailExpiryVerificationToken = tokenExpiry;
 
@@ -98,8 +97,8 @@ const registerUser = asyncHandler(async (req, res) => {
       new ApiResponse(
         201,
         userdata,
-        "User registered successfully! Verification email sent."
-      )
+        "User registered successfully! Verification email sent.",
+      ),
     );
 });
 
@@ -126,7 +125,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
   // generate token
   const { AccessToken, RefreshToken } = await generateAccessAndRefreshToken(
-    user._id
+    user._id,
   );
 
   const Options = { httpOnly: true, secure: true };
@@ -142,11 +141,7 @@ const loginUser = asyncHandler(async (req, res) => {
     .cookie("accessToken", AccessToken, Options)
     .cookie("refreshToken", RefreshToken, Options)
     .json(
-      new ApiResponse(
-        200,
-        { user: userData, AccessToken, RefreshToken },
-        "user logged in successfully"
-      )
+      new ApiResponse(200, { user: userData }, "user logged in successfully"),
     );
 });
 
@@ -157,7 +152,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     {
       $set: { refreshToken: "" },
     },
-    { new: true }
+    { new: true },
   );
 
   const Options = { httpOnly: true, secure: true };
@@ -219,7 +214,7 @@ const fogetPasswrod = asyncHandler(async (req, res) => {
   const userName = user.userName;
   const mailgenContent = forgetPasswordMailgenContent(
     userName,
-    passwordResetUrl
+    passwordResetUrl,
   );
   sendMail({
     email: user.email,
@@ -230,7 +225,7 @@ const fogetPasswrod = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(
-      new ApiResponse(200, {}, "password reset has been sent to your email !")
+      new ApiResponse(200, {}, "password reset has been sent to your email !"),
     );
 }); // goget password controller is not here
 
@@ -244,7 +239,7 @@ const generateRefreshToken = asyncHandler(async (req, res) => {
   }
   const decodeRefreshToken = jwt.verify(
     incommingRefreshToken,
-    process.env.REFRESHTOKEN_SECRET
+    process.env.REFRESHTOKEN_SECRET,
   );
   const user = await User.findById(decodeRefreshToken.id);
   if (!user) {
@@ -257,7 +252,7 @@ const generateRefreshToken = asyncHandler(async (req, res) => {
 
   // generate new token
   const { AccessToken, RefreshToken } = await generateAccessAndRefreshToken(
-    user._id
+    user._id,
   );
 
   const Options = {
@@ -273,8 +268,8 @@ const generateRefreshToken = asyncHandler(async (req, res) => {
       new ApiResponse(
         200,
         { AccessToken, RefreshToken },
-        "Access token refreshed successfully"
-      )
+        "Access token refreshed successfully",
+      ),
     );
 });
 
@@ -347,13 +342,13 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   const updatedUserData = await User.findByIdAndUpdate(
     req.user.id,
     { $set: userData },
-    { new: true }
+    { new: true },
   ).select("-password"); // exclude password if not needed
 
   return res
     .status(200)
     .json(
-      new ApiResponse(200, updatedUserData, "details updated successfully !")
+      new ApiResponse(200, updatedUserData, "details updated successfully !"),
     );
 });
 
