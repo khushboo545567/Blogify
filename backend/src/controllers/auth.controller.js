@@ -10,6 +10,8 @@ import {
   sendMail,
 } from "../utils/mail.js";
 import bcrypt from "bcrypt";
+import { Post } from "../models/post.model.js";
+import { Follow } from "../models/follow.model.js";
 
 // GENERATE ACCESS AND REFRESH TOKEN
 const generateAccessAndRefreshToken = async (userId) => {
@@ -166,11 +168,32 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 // GET CURRENT USER
 const getCurrentUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id);
+  const userId = req.user.id;
 
-  return res
-    .status(200)
-    .json(new ApiResponse(200, user, "user fetched successfully "));
+  const [user, postCount, followerCount, followingCount] = await Promise.all([
+    User.findById(userId)
+      .select("userName email avatar bio role createdAt")
+      .lean(),
+
+    Post.countDocuments({ postedBy: userId }),
+
+    // people following me
+    Follow.countDocuments({ following: userId }),
+
+    // people I follow
+    Follow.countDocuments({ follower: userId }),
+  ]);
+
+  const obj = {
+    user,
+    stats: {
+      posts: postCount,
+      followers: followerCount,
+      following: followingCount,
+    },
+  };
+
+  res.status(200).json(new ApiResponse(200, obj, "user fetched successfully"));
 });
 
 // CHANGE THE PASSWORD OF USER

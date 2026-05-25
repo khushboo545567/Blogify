@@ -28,8 +28,10 @@ const postSchema = mongoose.Schema(
       default: 0,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
+
+postSchema.index({ postedBy: 1 });
 
 // PERFORMING ON DELETE CASECADE
 
@@ -42,7 +44,7 @@ postSchema.post("findOneAndDelete", async function (doc) {
 
     // get comment id from this post
     const comments = await Comment.find({ commentOnPost: doc._id }).select(
-      "_id"
+      "_id",
     );
     const commentIds = comments.map((c) => c._id);
 
@@ -72,7 +74,7 @@ postSchema.pre("remove", async function (next) {
     const Like = mongoose.model("Like");
 
     const comments = await Comment.find({ commentOnPost: this._id }).select(
-      "_id"
+      "_id",
     );
     const commentIds = comments.map((c) => c._id);
 

@@ -19,7 +19,7 @@ const followSchema = mongoose.Schema(
       },
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 // Prevent duplicate follows
