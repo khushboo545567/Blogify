@@ -40,7 +40,7 @@ const PostAticle = asyncHandler(async (req, res) => {
         console.warn(
           "Could not delete original temp file:",
           file.path,
-          err.message
+          err.message,
         );
       }
 
@@ -52,7 +52,7 @@ const PostAticle = asyncHandler(async (req, res) => {
         console.warn(
           "Could not delete compressed file:",
           compressedPath,
-          err.message
+          err.message,
         );
       }
 
@@ -106,43 +106,34 @@ const editArticle = asyncHandler(async (req, res) => {
 // get post on the following of the user (first find the users follower and then find these authros in teh post createdby and return )
 
 const getPostForFeed = asyncHandler(async (req, res) => {
-  const userId = req.user.id;
   const page = Number(req.query.page || 1);
   const limit = 20;
   const skip = (page - 1) * limit;
 
-  const followDocs = await Follow.find({ follower: userId }).select(
-    "following -_id"
+  const [posts, total] = await Promise.all([
+    Post.find()
+      .populate("postedBy", "userName avatar")
+      .populate("category", "categoryName")
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit),
+
+    Post.countDocuments(),
+  ]);
+
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      {
+        posts,
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+      "All posts fetched successfully",
+    ),
   );
-
-  // map properly to array of ids
-  const followingIds = followDocs
-    .map((f) => (f.following ? f.following.toString() : null))
-    .filter(Boolean);
-
-  if (!followingIds.length) {
-    return res.status(200).json({
-      success: true,
-      data: { posts: [], page, limit, total: 0, totalPages: 0 },
-    });
-  }
-
-  // show only posts from last N days (default 7)
-  const days = Number.parseInt(req.query.days ?? "7", 10);
-  const cutoff = new Date(Date.now() - Math.max(0, days) * 24 * 60 * 60 * 1000);
-
-  const posts = await Post.find({
-    postedBy: { $in: followingIds }, // <-- fixed variable name
-    createdAt: { $gte: cutoff },
-  })
-    .populate("postedBy", "userName avatar")
-    .sort({ createdAt: -1 })
-    .skip(skip)
-    .limit(limit); // limit or paginate as needed
-
-  return res
-    .status(200)
-    .json(new ApiResponse(200, posts, "post are fetched successfully !"));
 });
 
 // FETCH THE COMMENT FOR EACH POST
@@ -171,8 +162,8 @@ export const getPostForAdmin = asyncHandler(async (req, res) => {
         total,
         totalPages: Math.ceil(total / limit),
       },
-      "posts fetched for admin"
-    )
+      "posts fetched for admin",
+    ),
   );
 });
 
@@ -205,7 +196,7 @@ const getPostByFilter = asyncHandler(async (req, res) => {
   const { filterName } = req.params;
   console.log(filterName);
   const catIdDoc = await Catogery.findOne({ catogeryName: filterName }).select(
-    "_id"
+    "_id",
   );
   if (!catIdDoc) {
     return res

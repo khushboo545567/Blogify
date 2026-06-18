@@ -10,6 +10,7 @@ import {
   updateUserProfile,
   resendEmail,
   generateRefreshToken,
+  getUserStatus,
 } from "../controllers/auth.controller.js";
 import { verifyEmail } from "../controllers/verifyEmail.controller.js";
 import {
@@ -31,7 +32,7 @@ router
     upload.single("avatar"),
     registerUserValidator(),
     validate,
-    registerUser
+    registerUser,
   );
 
 // login
@@ -69,5 +70,7 @@ router.route("/update-user").post(verifyJwt, updateUserProfile);
 
 // refresh token
 router.route("/refresh-token").post(generateRefreshToken);
+
+router.route("/status-page").get(verifyJwt, getUserStatus);
 
 export default router;

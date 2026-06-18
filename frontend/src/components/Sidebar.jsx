@@ -49,13 +49,7 @@ const Sidebar = () => {
           <i className="ri-bar-chart-fill text-black dark:text-white cursor-pointer"></i>
           <span className="text-black dark:text-white">Status</span>
         </Link>
-        <Link
-          to="/save"
-          className="flex gap-3 text-lg hover:bg-gray-100 p-2 rounded-sm hover:dark:bg-gray-700"
-        >
-          <i className="ri-book-marked-fill text-black dark:text-white cursor-pointer"></i>
-          <span className="text-black dark:text-white"> Library</span>
-        </Link>
+
         <Link
           to="#"
           className="flex gap-3 text-lg hover:bg-gray-100  p-2 rounded-sm hover:dark:bg-gray-700"

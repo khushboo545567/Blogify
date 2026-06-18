@@ -15,13 +15,13 @@ const HomePage = () => {
         </p>
         <div className="flex gap-4">
           <Link
-            to="/blogs"
+            to="/feed"
             className="bg-black dark:bg-white dark:text-black text-white px-6 py-2 rounded-sm "
           >
             Explore Blogs
           </Link>
           <Link
-            to="/create"
+            to="/postblog"
             className="border border-black text-black dark:text-white px-6 py-2 rounded-sm dark:border-white   transition"
           >
             Create Blog
@@ -30,30 +30,38 @@ const HomePage = () => {
       </section>
 
       {/* Featured Blogs */}
-      <section className="px-6 py-12">
-        <h2 className="text-2xl font-semibold mb-6 text-center">
-          Featured Blogs
+      {/* Why Choose Us */}
+      <section className="px-6 py-16">
+        <h2 className="text-3xl font-bold text-center mb-10">
+          Why Choose Our Platform?
         </h2>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {[1, 2, 3].map((item) => (
-            <div
-              key={item}
-              className="bg-gray-100 dark:bg-gray-900 p-5 rounded-sm shadow hover:shadow-md border border-gray-700  transition"
-            >
-              <h3 className="text-xl font-semibold mb-2">Blog Title {item}</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
-                This is a short description of the blog post. Click to read
-                more.
-              </p>
-              <Link
-                to="/blogs"
-                className="text-indigo-600 dark:text-indigo-400 font-medium"
-              >
-                Read more →
-              </Link>
-            </div>
-          ))}
+        <div className="grid gap-6 md:grid-cols-3">
+          <div className="p-6 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <div className="text-4xl mb-4">✍️</div>
+            <h3 className="text-xl font-semibold mb-2">Write Freely</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Share your ideas, experiences, and knowledge with an easy-to-use
+              editor.
+            </p>
+          </div>
+
+          <div className="p-6 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <div className="text-4xl mb-4">🌍</div>
+            <h3 className="text-xl font-semibold mb-2">Reach Readers</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Connect with people from around the world and build your audience.
+            </p>
+          </div>
+
+          <div className="p-6 border border-gray-200 dark:border-gray-700 rounded-lg">
+            <div className="text-4xl mb-4">🤝</div>
+            <h3 className="text-xl font-semibold mb-2">Engage & Grow</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Follow creators, interact through comments, and discover new
+              perspectives every day.
+            </p>
+          </div>
         </div>
       </section>
     </div>

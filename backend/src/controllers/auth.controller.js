@@ -375,6 +375,43 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     );
 });
 
+// GET USER STATUS
+const getUserStatus = asyncHandler(async (req, res) => {
+  const userId = req.user.id;
+
+  const [user, postCount, followerCount, followingCount, posts] =
+    await Promise.all([
+      User.findById(userId)
+        .select("userName email avatar bio createdAt")
+        .lean(),
+
+      Post.countDocuments({ postedBy: userId }),
+
+      Follow.countDocuments({ following: userId }),
+
+      Follow.countDocuments({ follower: userId }),
+
+      Post.find({ postedBy: userId })
+        .populate("category", "name")
+        .sort({ createdAt: -1 })
+        .lean(),
+    ]);
+
+  const obj = {
+    user,
+    stats: {
+      posts: postCount,
+      followers: followerCount,
+      following: followingCount,
+    },
+    posts,
+  };
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, obj, "status page data fetched successfully"));
+});
+
 export {
   registerUser,
   loginUser,
@@ -385,4 +422,5 @@ export {
   generateRefreshToken,
   resendEmail,
   updateUserProfile,
+  getUserStatus,
 };
