@@ -15,9 +15,12 @@ const Card = ({ post }) => {
         {post.title}
       </h2>
 
-      <p className="text-gray-600 dark:text-gray-300 mt-2">
-        {post.description}
-      </p>
+      <div
+        className="text-gray-600 dark:text-gray-300 mt-2"
+        dangerouslySetInnerHTML={{
+          __html: post.description,
+        }}
+      />
 
       <div className="flex items-center gap-4 mt-3 text-sm text-gray-500">
         <span>❤️ {post.likesCount}</span>
